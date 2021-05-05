@@ -10,14 +10,14 @@ app = Flask('app')
 # to construct the URL that this repl will be accessible on.
 repl_owner = os.environ.get("REPL_OWNER")
 repl_slug = os.environ.get("REPL_SLUG")
-repl_url = "https://%s.%s.repl.co" % (repl_slug, repl_owner)
+repl_url = f'https://{repl_slug}.{repl_owner.lower()}.repl.co'
 
 TOKEN = os.environ.get("TOKEN")
 GIPHY_API_KEY = os.environ.get("GIPHY_API_KEY")
 
 @app.route('/')
 def hello_world():
-  return 'The Turn UI integration API endpoint is at %s/integration' % (repl_url,)
+  return f'The Turn UI integration API endpoint is at {repl_url}/integration'
 
 @app.route('/integration', methods=['POST'])
 def integration():
