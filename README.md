@@ -13,8 +13,8 @@ An example Turn.io UI integration on Replit. This will augment the Turn UI with 
 
 1. Click the `Run on Repl.it` button above and install this example into your Repl.it workspace.
 2. Get a Turn token and add it as a secret called `TOKEN` in Repl.it
-3. Sign-up for a free [Giphy developer API account](https://developers.giphy.com) and obtain an API token, add that as a secret called `GIPHY_API_TOKEN` in Repl.it
-4. Set up the custom integration using the URL generated for your workspace by Repl.it
+3. Sign-up for a free [Giphy developer API account](https://developers.giphy.com) and obtain an API token, add that as a secret called `GIPHY_API_KEY` in Repl.it
+4. Set up the custom integration using the URL generated for your workspace by Repl.it. We don't use authentication for this example, so choose either HTTP auth types from the dropdown and write something random in the token field.
 5. Send a message to your number and interact with the UI!
 
 The `Roll 🎲` menu has two options, both of those hit a custom URL in this Repl.it, pick a random number between 1 and 6 and send the result back as a reply.
