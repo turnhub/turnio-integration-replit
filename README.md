@@ -17,6 +17,10 @@ An example Turn.io UI integration on Replit. This will augment the Turn UI with 
 4. Set up the custom integration using the URL generated for your workspace by Repl.it
 5. Send a message to your number and interact with the UI!
 
+The `Roll 🎲` menu has two options, both of those hit a custom URL in this Repl.it, pick a random number between 1 and 6 and send the result back as a reply.
+
+The `Auto Giphy ⚡️` menu will search Giphy for a gif matching the text of the message. We will then send the Gif back as an MP4 video as WhatsApp doesn't support gif natively in the API at the moment.
+
 Here's a screenshot showing the custom profile addition, the suggested reply, and the roll a dice action menu:
 
 ![screenshot1](./screenshot-integration-01.png)
