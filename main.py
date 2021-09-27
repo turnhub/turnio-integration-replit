@@ -3,6 +3,7 @@ import os
 import phonenumbers
 import requests
 import random
+import json
 
 app = Flask('app')
 
@@ -215,15 +216,13 @@ def get_context_objects(message):
 
   wa_id = message["from"]
   phone_number = phonenumbers.parse("+%s" % (wa_id,), None)
-  response = requests.get('https://restcountries.eu/rest/v2/callingcode/%s' % (phone_number.country_code,))
-  data = response.json()
-  if data:
-    country = data[0]
+  country = fake_call_to_external_api_service(phone_number.country_code)
+  if country:
     return {
       "my-custom-profile": {
         "Region": country["region"],
-        "Country": country["name"],
-        "Capital": country["capital"]
+        "Country": country["name"]["official"],
+        "Capital": country["capital"][0]
       }
     }
   else:
@@ -255,5 +254,23 @@ def get_profile_name(message):
   """
   return message["_vnd"]["v1"]["author"]["name"]
 
+def fake_call_to_external_api_service(country_code):
+  """
+  this fakes a call to an external data API that has country
+  information. We use the numbe prefix for a phone number to
+  get more information about what country the user's phone
+  number belongs to.
+  """
+  country_code = str(country_code)
+  if not country_code.startswith("+"):
+    country_code = "+" + country_code
+  with open("countries.json", "r", encoding="utf-8") as file:
+    countries = json.loads(file.read())
+  
+  for country in countries:
+    if country_code in country["callingCodes"]:
+      return country
+
+  return None
 
 app.run(host='0.0.0.0', port=8080)
