@@ -264,6 +264,8 @@ def fake_call_to_external_api_service(country_code):
   country_code = str(country_code)
   if not country_code.startswith("+"):
     country_code = "+" + country_code
+  
+  # countries file fetched from https://raw.githubusercontent.com/mledoze/countries/master/dist/countries.json
   with open("countries.json", "r", encoding="utf-8") as file:
     countries = json.loads(file.read())
   
