@@ -218,11 +218,14 @@ def get_context_objects(message):
   phone_number = phonenumbers.parse("+%s" % (wa_id,), None)
   country = fake_call_to_external_api_service(phone_number.country_code)
   if country:
+    capital_city=country["capital"][0]
+    
     return {
       "my-custom-profile": {
         "Region": country["region"],
         "Country": country["name"]["official"],
-        "Capital": country["capital"][0]
+        # this will display the capital name as a link to the capital on Wikipedia
+        "Capital": f"[{capital_city}](https://en.wikipedia.org/w/index.php?search={capital_city})"
       }
     }
   else:
