@@ -9,9 +9,8 @@ app = Flask('app')
 
 # Repl provides these environment variables, we use it
 # to construct the URL that this repl will be accessible on.
-repl_owner = os.environ.get("REPL_OWNER")
-repl_slug = os.environ.get("REPL_SLUG")
-repl_url = f'https://{repl_slug}.{repl_owner.lower()}.repl.co'
+repl_dev_url = os.getenv("REPLIT_DEV_DOMAIN")
+repl_url = f"https://{repl_dev_url}"
 
 TOKEN = os.environ.get("TOKEN")
 GIPHY_API_KEY = os.environ.get("GIPHY_API_KEY")
