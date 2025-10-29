@@ -14,6 +14,8 @@ repl_url = f"https://{repl_dev_url}"
 
 TOKEN = os.environ.get("TOKEN")
 GIPHY_API_KEY = os.environ.get("GIPHY_API_KEY")
+TURN_API_URL = os.environ.get("TURN_API_URL", "https://whatsapp.turn.io")
+
 
 @app.route('/')
 def hello_world():
@@ -172,40 +174,54 @@ def giphy():
   return ''
 
 def send_message(wa_id, body):
-  """
-  Send a text message to a wa_id
-  """
-  return requests.post(
-    url="https://whatsapp.turn.io/v1/messages",
-    headers={
-        "Authorization": f"Bearer {TOKEN}",
-        "Content-Type": "application/json",
-    },
-    json={
-        "to": wa_id,
-        "text": {
-            "body": body
+    """
+    Send a text message to a wa_id
+    """
+    response = requests.post(
+        url=f"{TURN_API_URL}/v1/messages",
+        headers={
+            "Authorization": f"Bearer {TOKEN}",
+            "Content-Type": "application/json",
         },
-    })
+        json={
+            "to": wa_id,
+            "text": {"body": body},
+        },
+    )
+
+    # ADD THIS ERROR HANDLING:
+    if response.status_code != 200:
+        print(
+            f"ERROR sending message: {response.status_code} - {response.text} to {TURN_API_URL}"
+        )
+    else:
+        print(f"SUCCESS: Message sent to {wa_id}")
+
+    return response
+
 
 def send_video(wa_id, mp4_url):
-  """
-  Send a video message to a wa_id
-  """
-  return requests.post(
-    url="https://whatsapp.turn.io/v1/messages",
-    headers={
-      "Authorization": f"Bearer {TOKEN}",
-      "Content-Type": "application/json",
-    },
-    json={
-      "to": wa_id,
-      "type": "video",
-      "video": {
-        "link": mp4_url
-      }
-    }
-  )
+    """
+    Send a video message to a wa_id
+    """
+    response = requests.post(
+        url=f"{TURN_API_URL}/v1/messages",
+        headers={
+            "Authorization": f"Bearer {TOKEN}",
+            "Content-Type": "application/json",
+        },
+        json={"to": wa_id, "type": "video", "video": {"link": mp4_url}},
+    )
+
+    if response.status_code != 200:
+        print(
+            f"ERROR sending message: {response.status_code} - {response.text} to {TURN_API_URL}"
+        )
+    else:
+        print(f"SUCCESS: Message sent to {wa_id}")
+
+    return response
+
 
 def get_context_objects(message):
   """
