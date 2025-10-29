@@ -7,15 +7,34 @@ An example Turn.io UI integration on Replit. This will augment the Turn UI with 
 1. You have gone through the [webhooks example](https://github.com/turnhub/turnio-webhooks-replit) and are comfortable with how to get an authentication for Turn and set it up as a secret in Repl.it
 2. You have gone through the [DuckDuckGo suggested reply example](https://github.com/turnhub/turnio-duckduckgo-replit) and are comfortable with how to set up a `Custom Integration` in Turn.
 
-# How to run this Repl.it
+## How to run this
+
+### Running on Replit
 
 [![Run on Repl.it](https://repl.it/badge/github/turnhub/turnio-integration-replit)](https://repl.it/github/turnhub/turnio-integration-replit)
 
 1. Click the `Run on Repl.it` button above and install this example into your Repl.it workspace.
 2. Get a Turn token and add it as a secret called `TOKEN` in Repl.it
 3. Sign-up for a free [Giphy developer API account](https://developers.giphy.com) and obtain an API token, add that as a secret called `GIPHY_API_KEY` in Repl.it
-4. Set up the custom integration using the URL generated for your workspace by Repl.it. We don't use authentication for this example, so choose either HTTP auth types from the dropdown and write something random in the token field.
-5. Send a message to your number and interact with the UI!
+4. (Optional) If you're using a custom Turn API URL, set it as a secret called `TURN_API_URL` (defaults to `https://whatsapp.turn.io`)
+5. Set up the custom integration using the URL generated for your workspace by Repl.it. We don't use authentication for this example, so choose either HTTP auth types from the dropdown and write something random in the token field.
+6. Send a message to your number and interact with the UI!
+
+### Running locally
+
+1. Clone this repository
+2. Install dependencies: `poetry install`
+3. Set environment variables:
+
+   ```bash
+   export TOKEN="your-turn-api-token"
+   export GIPHY_API_KEY="your-giphy-api-key"
+   export TURN_API_URL="https://whatsapp.turn.io"  # Optional
+   export REPLIT_DEV_DOMAIN="localhost:5000"  # For local development
+   ```
+
+4. Run the application: `python main.py`
+5. The server will start on `http://0.0.0.0:5000`
 
 The `Roll 🎲` menu has two options, both of those hit a custom URL in this Repl.it, pick a random number between 1 and 6 and send the result back as a reply.
 
